@@ -3,12 +3,17 @@
 using namespace std;
 class Complex {
 public:
-
     double Im;
     double Re;
     void setValues(double image, double real) {
         Im = image;
         Re = real;
+    }
+    Complex() : Im(0), Re(0) { };
+    Complex(double im, double re) : Im(im), Re(re) { };
+    Complex(const Complex& c) {
+        this->Im = (c.Im);
+        this->Re = (c.Re);
     }
     Complex operator+(const Complex& c) const
     {
@@ -42,7 +47,7 @@ public:
         temp.Re = (Im * c.Re - Re * c.Im) / r;
         return temp;
     }
-    ~Complex();
+    ~Complex() {};
 };
 ostream& operator<<(ostream& stream, const Complex& obj) {
     return stream << obj.Im << " + " << obj.Re << "i";
@@ -50,34 +55,46 @@ ostream& operator<<(ostream& stream, const Complex& obj) {
 class Vector {
     double a1, a2, a3;
 public:
-    Vector(double _a1, double _a2, double _a3, double _b1, double _b2, double _b3) {
+    Vector() : a1(0), a2(0), a3(0) { };
+    Vector(double _a1, double _a2, double _a3) {
         a1 = _a1;
         a2 = _a2;
         a3 = _a3;
     }
-    ~Vector();
-    double plus() {
-        a1 = a1 + this->a1;
-        a2 = a2 + this->a2;
-        a3 = a3 + this->a3;
-        return (a1, a2, a3);
+    Vector(const Vector& c) {
+        this->a1 = (c.a1);
+        this->a2 = (c.a2);
+        this->a3 = (c.a3);
     }
-    double multiply() {
-        a1 = a1 * this->a1;
-        a2 = a2 * this->a2;
-        a3 = a3 * this->a3;
-        return (a1, a2, a3);
+    ~Vector() {};
+    Vector plus(Vector a) {
+        a.a1 = a.a1 + this->a1;
+        a.a2 = a.a2 + this->a2;
+        a.a3 = a.a3 + this->a3;
+        return (a);
+    }
+    Vector multiply(Vector a) {
+        a.a1 = a.a1 * this->a1;
+        a.a2 = a.a2 * this->a2;
+        a.a3 = a.a3 * this->a3;
+        return (a);
 
     }
 };
 class Circle {
-    float p = 3.14;
+    double p = 3.14;
     double r{};
 public:
+    Circle() : p(0), r(0) { };
+    Circle(double pi, double R): p(pi), r(R) {}
+    Circle(const Circle& c) {
+        this->r = (c.r);
+        this->p = (c.p);
+    }
     explicit Circle(double _r) {
         r = _r;
     }
-    ~Circle();
+    ~Circle() {};
     double square() const {
         return p * pow(r, 2);
     }
@@ -89,7 +106,6 @@ public:
         return 2 * r;
     }
 };
-int main() {
-    return 0;
-};
 
+int main() {
+    return 0
